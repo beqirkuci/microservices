@@ -1,7 +1,8 @@
 package com.example.microserviceb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,7 @@ public class Calculator {
 		// TODO Auto-generated constructor stub
 	}
 
+	@RefreshScope
 	@GetMapping("/calculate/{firstParam}/{secondParam}")
 	public CalculatorBean Calculate(@PathVariable float firstParam, @PathVariable float secondParam) {
 
@@ -46,4 +48,17 @@ public class Calculator {
 		return calculatorBean;
 
 	}
+
+@RefreshScope
+@RestController
+class MessageRestController {
+
+	@Value("${message:Hello default}")
+	private String message;
+
+	@GetMapping("/message")
+	String getMessage() {
+		return this.message;
+	}
+}
 }

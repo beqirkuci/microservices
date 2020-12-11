@@ -1,0 +1,24 @@
+spring:
+  application:
+   # name of the application
+    name: spring-config-server
+   # available profiles of the application 
+  profiles:
+    active: local,development,production
+  cloud:
+    config:
+      server:
+        git:
+          # git url where the configurations are stored
+          # uri: file:///C:/Beqir/configurationserver
+          uri: https://github.com/beqirkuci/configurationserver
+          # if configurations are in sub folders search the subfolder by below name
+    
+server:
+  # config server port
+  port: 8888
+management:
+  security:
+  # disable security of the config server
+    enabled: false
+    
