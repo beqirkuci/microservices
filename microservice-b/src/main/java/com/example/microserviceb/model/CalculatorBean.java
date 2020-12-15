@@ -1,18 +1,11 @@
 package com.example.microserviceb.model;
 
-import org.springframework.stereotype.Component;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Component
 @Data
 @AllArgsConstructor
 public class CalculatorBean {
-
-	private float firsParam;
-
-	private float secondParam;
 
 	private String operator;
 
@@ -22,11 +15,26 @@ public class CalculatorBean {
 		// Default constructor
 	}
 
-	public CalculatorBean(String name, float firsParam, float secondParam, String operator, float result) {
-		this.firsParam = firsParam;
-		this.secondParam = secondParam;
+	public CalculatorBean(float firsParam, float secondParam, String operator) {
+
 		this.operator = operator;
-		this.result = result;
+		if (operator.trim().contentEquals("+")) {
+			this.result = Float.sum(firsParam, secondParam);
+
+		} else if (operator.trim().contentEquals("-")) {
+
+			this.result = Float.sum(firsParam, secondParam);
+		} else if (operator.trim().contentEquals("*")) {
+			this.result = Float.sum(firsParam, secondParam);
+		} else if (operator.trim().contentEquals("/")) {
+			this.result = Float.sum(firsParam, secondParam);
+
+		} else
+		{
+			// mock response
+			this.result = 0;
+		}
+
 	}
 
 }

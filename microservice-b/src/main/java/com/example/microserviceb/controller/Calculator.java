@@ -1,6 +1,5 @@
 package com.example.microserviceb.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,7 @@ import com.netflix.config.DynamicStringProperty;
 @RestController
 public class Calculator {
 
-	@Autowired
-	CalculatorBean calculatorBean;
+
 
 	private DynamicStringProperty propertyOneWithDynamic = DynamicPropertyFactory.getInstance()
 			.getStringProperty("archaius.properties.operator", "not found!");
@@ -27,24 +25,8 @@ public class Calculator {
 	@RefreshScope
 	@GetMapping("/calculate/{firstParam}/{secondParam}")
 	public CalculatorBean Calculate(@PathVariable float firstParam, @PathVariable float secondParam) {
-
 		String operator = propertyOneWithDynamic.get();
-		if (operator.trim().contentEquals("+")) {
-
-			calculatorBean.setResult(Float.sum(firstParam, secondParam));
-		} else if (operator.trim().contentEquals("-")) {
-
-			calculatorBean.setResult(firstParam - secondParam);
-		} else if (operator.trim().contentEquals("*")) {
-
-			calculatorBean.setResult(firstParam * secondParam);
-		} else if (operator.trim().contentEquals("/")) {
-
-			calculatorBean.setResult(firstParam / secondParam);
-
-		} else
-			calculatorBean.setResult(0);
-
+		CalculatorBean calculatorBean = new CalculatorBean(firstParam,secondParam,operator);
 		return calculatorBean;
 
 	}
